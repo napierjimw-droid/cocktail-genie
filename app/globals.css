@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #020010;
   --foreground: #171717;
 }
 
@@ -20,7 +20,77 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 50% -10%, rgba(0,255,255,0.15), transparent 40%),
+    radial-gradient(circle at top, #2b0050, #020010 70%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes pop {
+  from {
+    transform: translateX(-50%) scale(0.6);
+    opacity:0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity:1;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #00ffff,
+    #d4af37,
+    #00ffff
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0px); opacity: 0.6; }
+  50% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.6; }
+}
+
+.sparkle {
+  position: absolute;
+  color: #00ffff;
+  font-size: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-fade {
+  animation: fadeIn 1.2s ease-out;
+}
+.sparkle {
+  position: absolute;
+  color: #d4af37;
+  text-shadow: 0 0 6px rgba(212,175,55,0.8);
+}
+.footer-link {
+  color: #00ffff;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.footer-link:hover {
+  color: #d4af37;
+  text-shadow: 0 0 6px rgba(212,175,55,0.6);
 }
