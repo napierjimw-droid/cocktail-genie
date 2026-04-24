@@ -44,6 +44,304 @@ const List<String> kGenieLines = [
   "Stir gently… destiny is fragile.",
 ];
 
+// ─── SIMPLE PAGE TEMPLATE ──────────────────────────────────────────────────────
+
+class SimpleInfoPage extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final List<Widget> children;
+
+  const SimpleInfoPage({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.topCenter,
+            radius: 1.5,
+            colors: [Color(0xFF1a0033), Color(0xFF050010)],
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // BACK
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(color: Colors.cyan),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.arrow_back, color: Colors.cyan, size: 16),
+                          SizedBox(width: 6),
+                          Text('Back', style: TextStyle(color: Colors.cyan)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                // TITLE
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.cyan,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    shadows: [Shadow(color: Colors.cyan, blurRadius: 10)],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                // SUBTITLE
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Color(0xFFd4af37),
+                    fontStyle: FontStyle.italic,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                ...children,
+                const SizedBox(height: 40),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _infoText(String text) => Padding(
+  padding: const EdgeInsets.only(bottom: 16),
+  child: Text(
+    text,
+    style: const TextStyle(color: Color(0xFFe0f7ff), fontSize: 15, height: 1.6),
+    textAlign: TextAlign.center,
+  ),
+);
+
+Widget _infoBox(String text) => Container(
+  margin: const EdgeInsets.only(top: 16),
+  padding: const EdgeInsets.all(16),
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(color: Colors.cyan.withOpacity(0.3)),
+    color: Colors.cyan.withOpacity(0.05),
+  ),
+  child: Text(
+    text,
+    style: const TextStyle(color: Color(0xFF7df9ff), fontSize: 13),
+    textAlign: TextAlign.center,
+  ),
+);
+
+// ─── ABOUT PAGE ────────────────────────────────────────────────────────────────
+
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '🧞 About the Genie',
+      subtitle: '"Not all wishes come true… but cocktails usually do."',
+      children: [
+        _infoText('Brought to you by GenieVerse LLC—mixing magic and cocktails across all realms. Your wishes (and drinks) granted with a wink!'),
+        _infoText('Cocktail Genie is your magical companion for discovering drinks from every corner of the world. Whether you crave a classic, something exotic, or a surprise you didn\'t know you needed — the genie is always ready to serve.'),
+        _infoText('This app was built for explorers, curious minds, and anyone who believes that the perfect cocktail is just one wish away.'),
+        _infoText('Browse, search, save favorites, and let a little chaos guide your next drink. After all… the best discoveries are often accidental.'),
+        _infoBox('Powered by TheCocktailDB API 🍸\n(and a slightly mischievous genie)'),
+      ],
+    );
+  }
+}
+
+// ─── PRIVACY PAGE ──────────────────────────────────────────────────────────────
+
+class PrivacyPage extends StatelessWidget {
+  const PrivacyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '🔐 Privacy Policy',
+      subtitle: '"Your secrets are safe… even from the genie."',
+      children: [
+        _infoText('We respect your privacy. Cocktail Genie does not collect personal information unless you voluntarily provide it (for example, via contact).'),
+        _infoText('We do not sell, trade, or magically teleport your data to third parties. What happens in the app… stays in the app.'),
+        _infoText('Some non-personal data (like usage patterns) may be collected to improve the experience — think of it as the genie learning your taste.'),
+        _infoBox('Third-party services (like TheCocktailDB API) may operate under their own privacy policies.'),
+        _infoText('By using this app, you agree to this policy. Laws vary by country — follow your local regulations.'),
+      ],
+    );
+  }
+}
+
+// ─── LEGAL PAGE ────────────────────────────────────────────────────────────────
+
+class LegalPage extends StatelessWidget {
+  const LegalPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '⚖️ Legal Notice',
+      subtitle: '"The genie grants wishes… not liability."',
+      children: [
+        _infoText('Cocktail Genie provides cocktail recipes and suggestions for informational and entertainment purposes only.'),
+        _infoText('We do not guarantee accuracy, completeness, or that your drink will turn out Instagram-worthy.'),
+        _infoText('Consumption of alcohol is your responsibility. Please drink responsibly and follow all local laws and regulations.'),
+        _infoText('Cocktail Genie, GenieVerse LLC, and any associated magical entities are not liable for:'),
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              '🍸 Poor cocktail decisions',
+              '🥴 Hangovers',
+              '💬 Questionable late-night messages',
+              '🕺 Unexpected dance confidence',
+            ].map((item) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(item, style: const TextStyle(color: Color(0xFFe0f7ff), fontSize: 15)),
+            )).toList(),
+          ),
+        ),
+        _infoBox('Data is provided by TheCocktailDB API. Please support them if you enjoy the service.'),
+        _infoText('By using this app, you agree to these terms.'),
+      ],
+    );
+  }
+}
+
+// ─── CONTACT PAGE ──────────────────────────────────────────────────────────────
+
+class ContactPage extends StatefulWidget {
+  const ContactPage({super.key});
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  final TextEditingController _msgController = TextEditingController();
+  bool _sent = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '📬 Contact the Genie',
+      subtitle: '"Whispers travel fast… but messages work better."',
+      children: [
+        _infoText('Found a bug? Have an idea? Want to praise the genie?'),
+        if (!_sent) ...[
+          const SizedBox(height: 12),
+          TextField(
+            controller: _msgController,
+            style: const TextStyle(color: Colors.cyan),
+            maxLines: 4,
+            decoration: InputDecoration(
+              hintText: 'Your message...',
+              hintStyle: const TextStyle(color: Colors.white38),
+              filled: true,
+              fillColor: const Color(0xFF111111),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: Colors.cyan),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: Colors.cyan),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          GestureDetector(
+            onTap: () => setState(() => _sent = true),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.cyan,
+              ),
+              child: const Text(
+                'Send Message ✨',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ] else
+          _infoBox('🧞 Message received! The genie will respond soon.'),
+        const SizedBox(height: 16),
+        _infoText('Or email us directly: genieverse.contact@gmail.com'),
+      ],
+    );
+  }
+}
+
+// ─── REFUNDS PAGE ──────────────────────────────────────────────────────────────
+
+class RefundsPage extends StatelessWidget {
+  const RefundsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '💸 Refund Policy',
+      subtitle: '"Wishes, once granted, cannot be taken back."',
+      children: [
+        _infoText('Cocktail Genie provides digital experiences and content instantly. Because of this, all interactions are considered fulfilled immediately.'),
+        _infoText('As a result, refunds are generally not available once the service has been used.'),
+        _infoText('However, if something is broken or not working correctly, please contact us — we will fix the issue as quickly as possible.'),
+        _infoBox('This policy applies globally. Local consumer protection laws may override certain conditions.'),
+        _infoText('GenieVerse LLC reserves the right to update this policy at any time.'),
+      ],
+    );
+  }
+}
+
+// ─── FEEDBACK PAGE ─────────────────────────────────────────────────────────────
+
+class FeedbackPage extends StatelessWidget {
+  const FeedbackPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleInfoPage(
+      title: '💬 Feedback',
+      subtitle: '"The genie is still learning your taste."',
+      children: [
+        _infoText('Feedback portal coming soon.'),
+        _infoText('Genie is still learning your taste.'),
+        _infoBox('In the meantime, reach us at:\ngenieverse.contact@gmail.com'),
+      ],
+    );
+  }
+}
+
 // ─── DETAIL PAGE ───────────────────────────────────────────────────────────────
 
 class DrinkDetailPage extends StatefulWidget {
@@ -124,7 +422,6 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // BACK BUTTON
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -149,22 +446,15 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                     ],
                   ),
                 ),
-                // DRINK NAME
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     drink['strDrink'] ?? '',
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [Shadow(color: Colors.cyan, blurRadius: 10)],
-                    ),
+                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white, shadows: [Shadow(color: Colors.cyan, blurRadius: 10)]),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 const SizedBox(height: 20),
-                // DRINK IMAGE
                 Stack(
                   children: [
                     Container(
@@ -180,22 +470,15 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(28),
-                        child: Image.network(
-                          drink['strDrinkThumb'] ?? '',
-                          fit: BoxFit.cover,
-                        ),
+                        child: Image.network(drink['strDrinkThumb'] ?? '', fit: BoxFit.cover),
                       ),
                     ),
-                    // ALCOHOL BADGE
                     Positioned(
                       left: 14,
                       top: 14,
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(999),
-                        ),
+                        decoration: BoxDecoration(color: Colors.black.withOpacity(0.6), borderRadius: BorderRadius.circular(999)),
                         child: Text(
                           drink['strAlcoholic'] == 'Alcoholic' ? '🍸 Alcoholic' : '🥤 Non-Alcoholic',
                           style: const TextStyle(fontSize: 13, color: Colors.white),
@@ -205,7 +488,6 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                // META INFO
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(16),
@@ -213,9 +495,7 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.cyan.withOpacity(0.4)),
                     color: Colors.cyan.withOpacity(0.08),
-                    boxShadow: [
-                      BoxShadow(color: Colors.cyan.withOpacity(0.35), blurRadius: 40),
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.cyan.withOpacity(0.35), blurRadius: 40)],
                   ),
                   child: Wrap(
                     spacing: 8,
@@ -232,7 +512,6 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // FAVORITE BUTTON
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -243,7 +522,6 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                // GENIE QUOTE
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 40),
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -252,14 +530,9 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [BoxShadow(color: Colors.cyan.withOpacity(0.3), blurRadius: 20)],
                   ),
-                  child: Text(
-                    '🧞‍♂️ $_genieLine',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white70, fontStyle: FontStyle.italic),
-                  ),
+                  child: Text('🧞‍♂️ $_genieLine', textAlign: TextAlign.center, style: const TextStyle(color: Colors.white70, fontStyle: FontStyle.italic)),
                 ),
                 const SizedBox(height: 24),
-                // INGREDIENTS
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(20),
@@ -288,7 +561,6 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // INSTRUCTIONS
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(20),
@@ -303,15 +575,11 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                     children: [
                       const Text('📜 Instructions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                       const SizedBox(height: 12),
-                      Text(
-                        drink['strInstructions'] ?? '',
-                        style: const TextStyle(color: Colors.white70, height: 1.6),
-                      ),
+                      Text(drink['strInstructions'] ?? '', style: const TextStyle(color: Colors.white70, height: 1.6)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
-                // STAR RATING
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(16),
@@ -336,10 +604,7 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
                           );
                         }),
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Text('🔗', style: TextStyle(fontSize: 22)),
-                      ),
+                      const Text('🔗', style: TextStyle(fontSize: 22)),
                     ],
                   ),
                 ),
@@ -355,11 +620,7 @@ class _DrinkDetailPageState extends State<DrinkDetailPage> {
   Widget _metaBadge(String text, Color bg, Color border) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: bg,
-        border: Border.all(color: border),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(999), color: bg, border: Border.all(color: border)),
       child: Text(text, style: const TextStyle(fontSize: 13, color: Colors.white)),
     );
   }
@@ -392,8 +653,7 @@ class _HomePageState extends State<HomePage> {
       setState(() { _suggestions = []; _showSuggestions = false; });
       return;
     }
-    final res = await http.get(Uri.parse(
-        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=$value'));
+    final res = await http.get(Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=$value'));
     final data = jsonDecode(res.body);
     setState(() {
       _suggestions = (data['drinks'] ?? []).take(6).toList();
@@ -404,8 +664,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _search(String query) async {
     if (query.isEmpty) return;
     setState(() { _loading = true; _showSuggestions = false; });
-    final res = await http.get(Uri.parse(
-        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=$query'));
+    final res = await http.get(Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=$query'));
     final data = jsonDecode(res.body);
     setState(() {
       _searchResults = data['drinks'] ?? [];
@@ -414,9 +673,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _openDrink(String id) {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (_) => DrinkDetailPage(drinkId: id),
-    ));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => DrinkDetailPage(drinkId: id)));
+  }
+
+  void _openPage(Widget page) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   }
 
   @override
@@ -466,10 +727,7 @@ class _HomePageState extends State<HomePage> {
                                   border: Border.all(color: Colors.cyan),
                                   boxShadow: [BoxShadow(color: Colors.cyan.withOpacity(0.4), blurRadius: 8)],
                                 ),
-                                child: Text(
-                                  '🍹 ${_categoriesOpen ? "▲" : "▼"}',
-                                  style: const TextStyle(color: Colors.white, fontSize: 14),
-                                ),
+                                child: Text('🍹 ${_categoriesOpen ? "▲" : "▼"}', style: const TextStyle(color: Colors.white, fontSize: 14)),
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -503,7 +761,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            // LANGUAGE SWITCHER
+                            // LANGUAGE
                             GestureDetector(
                               onTap: () => setState(() { _langOpen = !_langOpen; _categoriesOpen = false; }),
                               child: Container(
@@ -621,7 +879,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      // GENIE LOGO
                       Image.asset('assets/images/genie.png', height: 260),
                       const SizedBox(height: 12),
                       const Text(
@@ -678,16 +935,16 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      // FOOTER
+                      // FOOTER LINKS
                       Wrap(
                         spacing: 20,
                         children: [
-                          TextButton(onPressed: () {}, child: const Text('About', style: TextStyle(color: Colors.cyan))),
-                          TextButton(onPressed: () {}, child: const Text('Privacy', style: TextStyle(color: Colors.cyan))),
-                          TextButton(onPressed: () {}, child: const Text('Legal', style: TextStyle(color: Colors.cyan))),
-                          TextButton(onPressed: () {}, child: const Text('Contact', style: TextStyle(color: Colors.cyan))),
-                          TextButton(onPressed: () {}, child: const Text('Refunds', style: TextStyle(color: Colors.cyan))),
-                          TextButton(onPressed: () {}, child: const Text('Feedback', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const AboutPage()), child: const Text('About', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const PrivacyPage()), child: const Text('Privacy', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const LegalPage()), child: const Text('Legal', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const ContactPage()), child: const Text('Contact', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const RefundsPage()), child: const Text('Refunds', style: TextStyle(color: Colors.cyan))),
+                          TextButton(onPressed: () => _openPage(const FeedbackPage()), child: const Text('Feedback', style: TextStyle(color: Colors.cyan))),
                         ],
                       ),
                       const SizedBox(height: 8),
